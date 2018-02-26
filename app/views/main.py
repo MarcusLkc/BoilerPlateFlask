@@ -1,10 +1,10 @@
-from flask import render_template, redirect, url_for
-from app import app
+from flask import Blueprint, render_template, redirect, url_for
+
+main = Blueprint('main', __name__)
 
 # created rout at index of website then render the index.html tempalte
 
 
-@app.route('/')
+@main.route('/')
 def index():
 	return render_template('index.html')
-	
