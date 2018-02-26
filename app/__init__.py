@@ -1,19 +1,20 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-
-import os
 
 
-app = Flask(__name__)
-app.config.from_object(os.environ.get('CONFIG') or 'config.DevelopmentConfig')
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+db = SQLAlchemy()
 
-from app.views.main import main as main_blueprint
-app.register_blueprint(main_blueprint)
 
-from app import models
+def create_app(config):
+    app = Flask(__name__)
+    app.config.from_object(config)
+    db.init_app(app)
+    from app.views.main import main as main_blueprint
+    app.register_blueprint(main_blueprint)
+
+    from app import models
+
+    return app
 
 # Import routes and Models at bottom of file because they depend on creation of app
 # importing them last prevents cirulcalar dependencies
