@@ -16,8 +16,5 @@ class BasicsTestCase(TestCase):
         db.session.remove()
         db.drop_all()
 
-    def test_equal(self):
-        self.assertTrue(5 == 5)
-
     def test_app_exists(self):
         self.assertFalse(current_app is None)
