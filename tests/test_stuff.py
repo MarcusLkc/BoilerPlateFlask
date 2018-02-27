@@ -1,4 +1,5 @@
 import unittest
+import os
 from flask_testing import TestCase
 from flask import current_app
 from app import create_app, db
@@ -6,7 +7,7 @@ from app import create_app, db
 
 class BasicsTestCase(TestCase):
     def create_app(self):
-        return create_app('config.TestingConfig')
+        return create_app(os.environ.get('CONFIG') or 'config.TestingConfig')
 
     def setUp(self):
         db.create_all()
